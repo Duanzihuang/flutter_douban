@@ -123,6 +123,9 @@ class MoviePageState extends State<MoviePageWidget> {
     print(_top250List);
     // TODO: implement build
     return new Scaffold(
+        appBar: new AppBar(
+            title: new Text('电影', style: new TextStyle(color: Colors.black)),
+            backgroundColor: Colors.white),
         body: new RaisedButton(
             child: new Center(child: new Text('发请求666')),
             onPressed: () {

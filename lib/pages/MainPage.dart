@@ -57,10 +57,10 @@ class MainPageState extends State<MainPageWidget> {
   Text getTabTitle(int curIndex) {
     if (curIndex == _tabIndex) {
       return new Text(appBarTitles[curIndex],
-          style: new TextStyle(color: Colors.black,fontSize: 14.0));
+          style: new TextStyle(color: Colors.black, fontSize: 14.0));
     } else {
       return new Text(appBarTitles[curIndex],
-          style: new TextStyle(color: const Color(0xff888888),fontSize: 14.0));
+          style: new TextStyle(color: const Color(0xff888888), fontSize: 14.0));
     }
   }
 
@@ -96,7 +96,7 @@ class MainPageState extends State<MainPageWidget> {
     initData();
     // TODO: implement build
     return Scaffold(
-        appBar: new AppBar(title: new Text('豆瓣电影')),
+        // appBar: new AppBar(title: new Text('豆瓣电影')),
         body: _bodys[_tabIndex],
         bottomNavigationBar: new BottomNavigationBar(
           items: <BottomNavigationBarItem>[
