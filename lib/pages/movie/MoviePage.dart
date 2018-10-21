@@ -93,7 +93,6 @@ class MoviePageState extends State<MoviePageWidget> {
 
     // 遍历返回的数据，赋值给对应的数组
     responses.map((Response response) {
-      print(response.data["subjects"]);
       switch (response.request.extra["type"]) {
         case "in_theaters":
           setState(() {
@@ -115,21 +114,90 @@ class MoviePageState extends State<MoviePageWidget> {
     }).toList();
   }
 
+  Widget buildMovieScrollView(movieType, movieList) {
+    return new Container(
+        height: 200.0,
+        child: new Column(
+          children: <Widget>[
+            new Container(
+              padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              color: Colors.cyan,
+              height: 30.0,
+              child: // 提示行
+                  new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  new Text(movieType),
+                  new Image.asset('images/arrow-right.png')
+                ],
+              ),
+            ),
+            new SingleChildScrollView(
+              // child: new ConstrainedBox(
+              //   constraints: new BoxConstraints(maxWidth: 700.0),
+              child: Row(
+                  // mainAxisSize: MainAxisSize.min,
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
+                        // A fixed-height child.
+                        color: Colors.yellow,
+                        height: 170.0,
+                        width: 120.0),
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
+                        // Another fixed-height child.
+                        color: Colors.green,
+                        height: 170.0,
+                        width: 120.0),
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
+                        // Another fixed-height child.
+                        color: Colors.yellow,
+                        height: 170.0,
+                        width: 120.0),
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
+                        // Another fixed-height child.
+                        color: Colors.green,
+                        height: 170.0,
+                        width: 120.0),
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
+                        // Another fixed-height child.
+                        color: Colors.yellow,
+                        height: 170.0,
+                        width: 120.0),
+                    Container(
+                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
+                        // Another fixed-height child.
+                        color: Colors.green,
+                        height: 170.0,
+                        width: 120.0),
+                  ]),
+            )
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("---build---");
-    print(_inTheatersList);
-    print(_comingSoonList);
-    print(_top250List);
     // TODO: implement build
     return new Scaffold(
         appBar: new AppBar(
             title: new Text('电影', style: new TextStyle(color: Colors.black)),
             backgroundColor: Colors.white),
-        body: new RaisedButton(
-            child: new Center(child: new Text('发请求666')),
-            onPressed: () {
-              this._getMovieListData();
-            }));
+        body: new SingleChildScrollView(
+            child: new Column(
+          children: <Widget>[
+            buildMovieScrollView(
+                'in_theaters', _inTheatersList != null ? _inTheatersList : []),
+            buildMovieScrollView(
+                'coming_soon', _comingSoonList != null ? _comingSoonList : []),
+            buildMovieScrollView(
+                'top250', _top250List != null ? _top250List : [])
+          ],
+        )));
   }
 }
