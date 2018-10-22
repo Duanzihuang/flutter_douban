@@ -114,82 +114,84 @@ class MoviePageState extends State<MoviePageWidget> {
     }).toList();
   }
 
-  Widget buildMovieScrollView(movieType, movieList) {
-    return new Container(
-        height: 200.0,
-        child: new Column(
-          children: <Widget>[
-            new Container(
-              padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              color: Colors.cyan,
-              height: 30.0,
-              child: // 提示行
-                  new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new Text(movieType),
-                  new Image.asset('images/arrow-right.png')
-                ],
-              ),
-            ),
-            new SingleChildScrollView(
-              // child: new ConstrainedBox(
-              //   constraints: new BoxConstraints(maxWidth: 700.0),
-              child: Row(
-                  // mainAxisSize: MainAxisSize.min,
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+  Widget buildMovieScrollView(String movieType, List movieList) {
+    var movieTypeName = '';
+    switch (movieType) {
+      case 'in_theaters':
+        movieTypeName = '正在热映';
+        break;
+      case 'coming_soon':
+        movieTypeName = '即将上映';
+        break;
+      case 'top250':
+        movieTypeName = 'top250';
+        break;
+      default:
+    }
+    if (movieList.length == 0) {
+      return null;
+    } else {
+      return new Container(
+          margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+          color: Colors.white,
+          height: 220.0,
+          child: new Column(
+            children: <Widget>[
+              new Container(
+                padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                // color: Colors.cyan,
+                height: 40.0,
+                child: // 提示行
+                    new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
-                        // A fixed-height child.
-                        color: Colors.yellow,
-                        height: 170.0,
-                        width: 120.0),
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
-                        // Another fixed-height child.
-                        color: Colors.green,
-                        height: 170.0,
-                        width: 120.0),
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
-                        // Another fixed-height child.
-                        color: Colors.yellow,
-                        height: 170.0,
-                        width: 120.0),
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
-                        // Another fixed-height child.
-                        color: Colors.green,
-                        height: 170.0,
-                        width: 120.0),
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
-                        // Another fixed-height child.
-                        color: Colors.yellow,
-                        height: 170.0,
-                        width: 120.0),
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(5.0, 0, 5.0, 0),
-                        // Another fixed-height child.
-                        color: Colors.green,
-                        height: 170.0,
-                        width: 120.0),
-                  ]),
-            )
-          ],
-        ));
+                    new Text(movieTypeName),
+                    new Image.asset('images/arrow-right.png')
+                  ],
+                ),
+              ),
+              new Container(
+                  // color: Colors.red,
+                  height: 180.0,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: movieList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      String title = movieList[index]["title"];
+                      var imageUrl = movieList[index]["images"]["small"];
+                      return new Container(
+                        height: 170,
+                        width: 120,
+                        margin: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
+                        // color: Colors.green,
+                        child: new Column(children: <Widget>[
+                          new Container(
+                              width: 120,
+                              height: 150,
+                              child: new Image.network(imageUrl)),
+                          new Text(
+                            '$title',
+                            style: new TextStyle(fontSize: 13.0),
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ]),
+                      );
+                    },
+                  ))
+            ],
+          ));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
+        backgroundColor: const Color(0xFFe9e9ef),
         appBar: new AppBar(
             title: new Text('电影', style: new TextStyle(color: Colors.black)),
             backgroundColor: Colors.white),
-        body: new SingleChildScrollView(
-            child: new Column(
+        body: new ListView(
           children: <Widget>[
             buildMovieScrollView(
                 'in_theaters', _inTheatersList != null ? _inTheatersList : []),
@@ -198,6 +200,6 @@ class MoviePageState extends State<MoviePageWidget> {
             buildMovieScrollView(
                 'top250', _top250List != null ? _top250List : [])
           ],
-        )));
+        ));
   }
 }
