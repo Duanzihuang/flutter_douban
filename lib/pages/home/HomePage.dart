@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import '../movie/MoviePage.dart';
+import '../mine/MinePage.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -10,7 +12,11 @@ class HomePage extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home: new HomePageWidget());
+        home: new HomePageWidget(),
+        routes: <String, WidgetBuilder>{
+          '/movie': (BuildContext context) => new MoviePage(),
+          '/mine': (BuildContext context) => new MinePage()
+        });
   }
 }
 
@@ -64,8 +70,16 @@ class HomePageState extends State<HomePageWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         new Text("首页", style: textStyle),
-                        new Text("电影", style: textStyle),
-                        new Text("我的", style: textStyle)
+                        new InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/movie');
+                            },
+                            child: new Text("电影", style: textStyle)),
+                        new InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/mine');
+                            },
+                            child: new Text("我的", style: textStyle))
                       ]))
             ])));
   }

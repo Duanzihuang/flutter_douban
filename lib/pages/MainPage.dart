@@ -9,14 +9,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: <String, WidgetBuilder>{
-        '/home': (BuildContext context) => new HomePage(),
-        '/movie': (BuildContext context) => new MoviePage(),
-        '/mine': (BuildContext context) => new MinePage()
-      },
-      home: new MainPageWidget(),
-    );
+        debugShowCheckedModeBanner: false, home: new MainPageWidget());
   }
 }
 

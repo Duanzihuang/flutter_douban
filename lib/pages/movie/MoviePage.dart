@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import './MovieList.dart';
+import './MovieDetail.dart';
 
 class MoviePage extends StatelessWidget {
   @override
@@ -114,7 +116,8 @@ class MoviePageState extends State<MoviePageWidget> {
     }).toList();
   }
 
-  Widget buildMovieScrollView(String movieType, List movieList) {
+  Widget buildMovieScrollView(
+      String movieType, List movieList, BuildContext context) {
     var movieTypeName = '';
     switch (movieType) {
       case 'in_theaters':
@@ -137,19 +140,25 @@ class MoviePageState extends State<MoviePageWidget> {
           height: 220.0,
           child: new Column(
             children: <Widget>[
-              new Container(
-                padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                // color: Colors.cyan,
-                height: 40.0,
-                child: // 提示行
-                    new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Text(movieTypeName),
-                    new Image.asset('images/arrow-right.png')
-                  ],
-                ),
-              ),
+              new InkWell(
+                  onTap: () {
+                    // 跳转到电影列表页面
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (ctx) => new MovieList(movieType: movieType)));
+                  },
+                  child: new Container(
+                    padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                    // color: Colors.cyan,
+                    height: 40.0,
+                    child: // 提示行
+                        new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Text(movieTypeName),
+                        new Image.asset('images/arrow-right.png')
+                      ],
+                    ),
+                  )),
               new Container(
                   // color: Colors.red,
                   height: 180.0,
@@ -158,23 +167,31 @@ class MoviePageState extends State<MoviePageWidget> {
                     itemCount: movieList.length,
                     itemBuilder: (BuildContext context, int index) {
                       String title = movieList[index]["title"];
+                      var movieId = movieList[index]["id"];
                       var imageUrl = movieList[index]["images"]["small"];
                       return new Container(
                         height: 170,
                         width: 120,
                         margin: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
                         // color: Colors.green,
-                        child: new Column(children: <Widget>[
-                          new Container(
-                              width: 120,
-                              height: 150,
-                              child: new Image.network(imageUrl)),
-                          new Text(
-                            '$title',
-                            style: new TextStyle(fontSize: 13.0),
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        ]),
+                        child: new InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(new MaterialPageRoute(
+                                  builder: (ctx) => new MovieDetail(
+                                        movieId: movieId,
+                                      )));
+                            },
+                            child: new Column(children: <Widget>[
+                              new Container(
+                                  width: 120,
+                                  height: 150,
+                                  child: new Image.network(imageUrl)),
+                              new Text(
+                                '$title',
+                                style: new TextStyle(fontSize: 13.0),
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            ])),
                       );
                     },
                   ))
@@ -193,12 +210,12 @@ class MoviePageState extends State<MoviePageWidget> {
             backgroundColor: Colors.white),
         body: new ListView(
           children: <Widget>[
+            buildMovieScrollView('in_theaters',
+                _inTheatersList != null ? _inTheatersList : [], context),
+            buildMovieScrollView('coming_soon',
+                _comingSoonList != null ? _comingSoonList : [], context),
             buildMovieScrollView(
-                'in_theaters', _inTheatersList != null ? _inTheatersList : []),
-            buildMovieScrollView(
-                'coming_soon', _comingSoonList != null ? _comingSoonList : []),
-            buildMovieScrollView(
-                'top250', _top250List != null ? _top250List : [])
+                'top250', _top250List != null ? _top250List : [], context)
           ],
         ));
   }
