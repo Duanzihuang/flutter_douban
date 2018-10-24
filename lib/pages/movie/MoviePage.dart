@@ -11,7 +11,7 @@ class MoviePage extends StatelessWidget {
         theme: new ThemeData(
           primarySwatch: Colors.blue,
         ),
-        debugShowCheckedModeBanner: false,
+        // debugShowCheckedModeBanner: false,
         // home: new Scaffold(body: new Center(child: new Text('电影'))));
         home: new MoviePageWidget());
   }
@@ -208,15 +208,20 @@ class MoviePageState extends State<MoviePageWidget> {
         appBar: new AppBar(
             title: new Text('电影', style: new TextStyle(color: Colors.black)),
             backgroundColor: Colors.white),
-        body: new ListView(
-          children: <Widget>[
-            buildMovieScrollView('in_theaters',
-                _inTheatersList != null ? _inTheatersList : [], context),
-            buildMovieScrollView('coming_soon',
-                _comingSoonList != null ? _comingSoonList : [], context),
-            buildMovieScrollView(
-                'top250', _top250List != null ? _top250List : [], context)
-          ],
-        ));
+        body: _top250List == null
+            ? new Center(
+                // CircularProgressIndicator是一个圆形的Loading进度条
+                child: new CircularProgressIndicator(),
+              )
+            : new ListView(
+                children: <Widget>[
+                  buildMovieScrollView('in_theaters',
+                      _inTheatersList != null ? _inTheatersList : [], context),
+                  buildMovieScrollView('coming_soon',
+                      _comingSoonList != null ? _comingSoonList : [], context),
+                  buildMovieScrollView(
+                      'top250', _top250List != null ? _top250List : [], context)
+                ],
+              ));
   }
 }

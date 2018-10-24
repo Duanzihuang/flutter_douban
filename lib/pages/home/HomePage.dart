@@ -12,11 +12,7 @@ class HomePage extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home: new HomePageWidget(),
-        routes: <String, WidgetBuilder>{
-          '/movie': (BuildContext context) => new MoviePage(),
-          '/mine': (BuildContext context) => new MinePage()
-        });
+        home: new HomePageWidget());
   }
 }
 
@@ -72,7 +68,7 @@ class HomePageState extends State<HomePageWidget> {
                         new Text("首页", style: textStyle),
                         new InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/movie');
+                              print(this);
                             },
                             child: new Text("电影", style: textStyle)),
                         new InkWell(
