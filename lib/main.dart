@@ -8,11 +8,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: '豆瓣电影',
-      theme: new ThemeData(
-        primarySwatch:Colors.blue
-      ),
-      home:MainPage()
-    );
+        title: '豆瓣电影',
+        theme: new ThemeData(primarySwatch: Colors.blue),
+        home: MainPage());
   }
 }

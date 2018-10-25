@@ -153,7 +153,7 @@ class MoviePageState extends State<MoviePageWidget> {
                                 new MovieList(movieType: movieType)));
                   },
                   child: new Container(
-                    padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
                     // color: Colors.cyan,
                     height: 40.0,
                     child: // 提示行
@@ -161,7 +161,11 @@ class MoviePageState extends State<MoviePageWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         new Text(movieTypeName),
-                        new Image.asset('images/arrow-right.png')
+                        new Container(
+                          width: 22.0,
+                          height: 22.0,
+                          child: new Image.asset('images/arrow-right.png'),
+                        )
                       ],
                     ),
                   )),
@@ -176,8 +180,8 @@ class MoviePageState extends State<MoviePageWidget> {
                       var movieId = movieList[index]["id"];
                       var imageUrl = movieList[index]["images"]["small"];
                       return new Container(
-                        height: 170,
-                        width: 120,
+                        height: 170.0,
+                        width: 120.0,
                         margin: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
                         // color: Colors.green,
                         child: new InkWell(
@@ -190,8 +194,8 @@ class MoviePageState extends State<MoviePageWidget> {
                             },
                             child: new Column(children: <Widget>[
                               new Container(
-                                  width: 120,
-                                  height: 150,
+                                  width: 120.0,
+                                  height: 150.0,
                                   child: new Image.network(imageUrl)),
                               new Text(
                                 '$title',

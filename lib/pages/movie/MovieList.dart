@@ -149,10 +149,18 @@ class MoveListState extends State<MovieList> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          new Text('电影名称：$title', style: titleStyle),
-                          new Text('电影类型：$type', style: titleStyle),
-                          new Text('上映年份：$year', style: titleStyle),
-                          new Text('豆瓣评分：$score', style: titleStyle)
+                          new Text('电影名称：$title',
+                              style: titleStyle,
+                              overflow: TextOverflow.ellipsis),
+                          new Text('电影类型：$type',
+                              style: titleStyle,
+                              overflow: TextOverflow.ellipsis),
+                          new Text('上映年份：$year',
+                              style: titleStyle,
+                              overflow: TextOverflow.ellipsis),
+                          new Text('豆瓣评分：$score',
+                              style: titleStyle,
+                              overflow: TextOverflow.ellipsis)
                         ],
                       ),
                     )

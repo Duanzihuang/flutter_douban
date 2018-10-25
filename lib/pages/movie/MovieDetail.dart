@@ -72,7 +72,7 @@ class MovieDetailState extends State<MovieDetail> {
 
                   // 主要演员和简介
                   new Container(
-                    width: 500,
+                    width: 500.0,
                     alignment: Alignment.centerLeft,
                     // margin: const EdgeInsets.all(10.0),
                     // color: Colors.green,
