@@ -59,10 +59,10 @@ class MoveListState extends State<MovieList> {
 
     var dio = new Dio();
     Response response = await dio.get(url);
-    totalSize = response.data["total"];
+
     setState(() {
-      movieList:
       movieList.addAll(response.data["subjects"]);
+      totalSize = response.data["total"];
     });
   }
 
@@ -120,7 +120,7 @@ class MoveListState extends State<MovieList> {
     var movie = movieList[i];
     var id = movie["id"];
     var title = movie["title"];
-    var type = movie["title"];
+    var type = movie["genres"].join('、');
     var year = movie["year"];
     var score = movie["rating"]["average"];
     return new InkWell(
@@ -144,6 +144,7 @@ class MoveListState extends State<MovieList> {
                         child: Image.network(movie["images"]["small"])),
                     new Container(
                       height: 180.0,
+                      margin: const EdgeInsets.all(12.0),
                       child: new Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,

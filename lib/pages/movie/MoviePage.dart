@@ -4,6 +4,8 @@ import './MovieList.dart';
 import './MovieDetail.dart';
 
 class MoviePage extends StatelessWidget {
+  var parentContext;
+  MoviePage(this.parentContext);
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -13,11 +15,13 @@ class MoviePage extends StatelessWidget {
         ),
         // debugShowCheckedModeBanner: false,
         // home: new Scaffold(body: new Center(child: new Text('电影'))));
-        home: new MoviePageWidget());
+        home: new MoviePageWidget(parentContext));
   }
 }
 
 class MoviePageWidget extends StatefulWidget {
+  var parentContext;
+  MoviePageWidget(this.parentContext);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -143,8 +147,10 @@ class MoviePageState extends State<MoviePageWidget> {
               new InkWell(
                   onTap: () {
                     // 跳转到电影列表页面
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (ctx) => new MovieList(movieType: movieType)));
+                    Navigator.of(widget.parentContext).push(
+                        new MaterialPageRoute(
+                            builder: (ctx) =>
+                                new MovieList(movieType: movieType)));
                   },
                   child: new Container(
                     padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
@@ -176,10 +182,11 @@ class MoviePageState extends State<MoviePageWidget> {
                         // color: Colors.green,
                         child: new InkWell(
                             onTap: () {
-                              Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (ctx) => new MovieDetail(
-                                        movieId: movieId,
-                                      )));
+                              Navigator.of(widget.parentContext)
+                                  .push(new MaterialPageRoute(
+                                      builder: (ctx) => new MovieDetail(
+                                            movieId: movieId,
+                                          )));
                             },
                             child: new Column(children: <Widget>[
                               new Container(

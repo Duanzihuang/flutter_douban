@@ -4,6 +4,8 @@ import '../movie/MoviePage.dart';
 import '../mine/MinePage.dart';
 
 class HomePage extends StatelessWidget {
+  var parentContext;
+  HomePage(this.parentContext);
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -12,11 +14,13 @@ class HomePage extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home: new HomePageWidget());
+        home: new HomePageWidget(parentContext));
   }
 }
 
 class HomePageWidget extends StatefulWidget {
+  var parentContext;
+  HomePageWidget(this.parentContext);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -73,7 +77,8 @@ class HomePageState extends State<HomePageWidget> {
                             child: new Text("电影", style: textStyle)),
                         new InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/mine');
+                              Navigator.of(widget.parentContext)
+                                  .pushNamed('/mine');
                             },
                             child: new Text("我的", style: textStyle))
                       ]))

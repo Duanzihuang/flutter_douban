@@ -3,13 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_douban/pages/home/HomePage.dart';
 import 'package:flutter_douban/pages/movie/MoviePage.dart';
 import 'package:flutter_douban/pages/mine/MinePage.dart';
+import './movie/MoviePage.dart';
+import './mine/MinePage.dart';
 
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new MaterialApp(
-        debugShowCheckedModeBanner: false, home: new MainPageWidget());
+        debugShowCheckedModeBanner: false,
+        home: new MainPageWidget(),
+        routes: <String, WidgetBuilder>{
+          "/movie": (BuildContext context) => new MoviePage(context),
+          '/mine': (BuildContext context) => new MinePage()
+        });
   }
 }
 
@@ -81,7 +88,7 @@ class MainPageState extends State<MainPageWidget> {
       ]
     ];
 
-    _bodys = [new HomePage(), new MoviePage(), new MinePage()];
+    _bodys = [new HomePage(context), new MoviePage(context), new MinePage()];
   }
 
   @override
