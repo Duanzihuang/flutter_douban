@@ -107,7 +107,8 @@ class MoveListState extends State<MovieList> {
         appBar: new AppBar(
             title: new Text(typeName != null ? typeName : '正在加载中...',
                 style: new TextStyle(color: Colors.black)),
-            backgroundColor: Colors.white),
+            backgroundColor: Colors.white,
+            iconTheme: new IconThemeData(color: Colors.black)),
         body: movieList == null
             ? new Center(
                 // CircularProgressIndicator是一个圆形的Loading进度条

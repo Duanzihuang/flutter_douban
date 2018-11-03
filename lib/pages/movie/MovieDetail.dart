@@ -42,7 +42,8 @@ class MovieDetailState extends State<MovieDetail> {
             title: new Text(
                 movieDetail == null ? '正在加载中...' : movieDetail["title"],
                 style: new TextStyle(color: Colors.black)),
-            backgroundColor: Colors.white),
+            backgroundColor: Colors.white,
+            iconTheme: new IconThemeData(color: Colors.black)),
         body: movieDetail == null
             ? new Center(child: new CircularProgressIndicator())
             : new SingleChildScrollView(
